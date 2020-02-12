@@ -1,14 +1,21 @@
 <!-- tunr/templates/tunr/base.html -->
-<html>
-  <head>
-    <title>TODOS</title>
-  </head>
-  <body>
-    <h1>Todos</h1>
+<!-- {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NBA Players</title>
+    <link rel="stylesheet" href="{% static 'css/nba_app.css' %}" />
+</head>
+<body>
+    <h1>NBA Players and Statistics</h1>
     <nav>
-      <a href="/"></a>
-      <a href="update"></a>
+        <button><a href="{% url 'player_list' %}">Players</a></button>
+        <button><a href="{% url 'stat_list' %}">Stats</a></button>
     </nav>
-    {% block content %} {% endblock %}
-  </body>
-</html>
+    {% block content %}
+    {% endblock %}
+</body>
+</html> -->

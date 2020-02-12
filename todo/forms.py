@@ -1,16 +1,16 @@
 from django import forms
-from .models import Todos, Lists
+from .models import Todo, List
 
 
-class TodosForm(forms.ModelForm):
+class TodoForm(forms.ModelForm):
 
     class Meta:
-        model = Todos
+        model = Todo
         fields = ('proj_desc', 'when')
 
 
-class ListsForm(forms.ModelForm):
+class ListForm(forms.ModelForm):
 
     class Meta:
-        model = Lists
+        model = List
         fields = ('name', 'comment', 'message',)

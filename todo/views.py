@@ -1,85 +1,82 @@
 from django.shortcuts import render, redirect
-from .models import Todos, Lists
-from .forms import TodosForm, ListsForm
+from .models import Todo, List
+from .forms import TodoForm, ListForm
 
 
 def todos_list(request):
-    todos = Todos.objects.all()
-    return render(request, 'todo/todos_list.html', {'todos': todos})
+    todos = Todo.objects.all()
+    return render(request, 'todo/todo_list.html', {'todos': todos})
 
 
-def todos_detail(request, pk):
-    todos = Todos.objects.get(id=pk)
-    return render(request, 'todo/todo_detail.html', {'todos': todos})
+def todo_detail(request, pk):
+    todo = Todo.objects.get(id=pk)
+    return render(request, 'todo/todo_detail.html', {'todo': todo})
 
 
-def todos_update(request, pk):
-    todo = Todos.objects.get(pk=pk)
+def todo_update(request, pk):
+    todo = Todo.objects.get(pk=pk)
     if request.method == 'POST':
-        form = TodosForm(request.POST, instance=todo)
+        form = TodoForm(request.POST, instance=todo)
         if form.is_valid():
             todo = form.save()
-            return redirect('todos_list', pk=todo.pk)
+            return redirect('todo_detail', pk=todo.pk)
     else:
-        form = TodosForm(instance=todo)
-    return render(request, 'todo/todos_form.html', {'form': form})
+        form = TodoForm(instance=todo)
+    return render(request, 'todo/todo_form.html', {'form': form})
+
 
 def todo_create(request):
     if request.method == 'POST':
-        form = TodosForm(request.POST)
+        form = TodoForm(request.POST)
         if form.is_valid():
-            todos = form.save()
-            return redirect('todos_detail', pk=todos.pk)
+            todo = form.save()
+            return redirect('todo_detail', pk=todo.pk)
     else:
-        form = TodosForm()
-    return render(request, 'todo/todos_form.html', {'form': form})
+        form = TodoForm()
+    return render(request, 'todo/todo_form.html', {'form': form})
+
 
 def todo_delete(request, pk):
-    Todos.objects.get(id=pk).delete()
+    Todo.objects.get(id=pk).delete()
     return redirect('todos_list')
-
 
 
 # ***************
 
 
-
-def list_list(request):
-    lists = Lists.objects.all()
-    return render(request, 'todo/list_list.html', {'lists': lists})
-
-
-def list_detail(request, pk):
-    lists = Lists.objects.get(id=pk)
-    return render(request, 'todo/list_detail.html', {'lists': lists})
+def task_list(request):
+    tasks = List.objects.all()
+    return render(request, 'todo/task_list.html', {'tasks': tasks})
 
 
+def task_detail(request, pk):
+    task = List.objects.get(id=pk)
+    return render(request, 'todo/task_detail.html', {'task': task})
 
-def list_create(request):
+
+def task_create(request):
     if request.method == 'POST':
         form = ListForm(request.POST)
         if form.is_valid():
-            listts = form.save()
-            return redirect('list_detail', pk=listts.pk)
+            task = form.save()
+            return redirect('task_detail', pk=task.pk)
     else:
         form = ListForm()
-    return render(request, 'todo/list_form.html', {'form': form})
+    return render(request, 'todo/task_form.html', {'form': form})
 
 
-
-def list_edit(request, pk):
-    listts = Lists.objects.get(pk=pk)
+def task_edit(request, pk):
+    task = List.objects.get(pk=pk)
     if request.method == "POST":
-        form = ListForm(request.POST, instance=listts)
+        form = ListForm(request.POST, instance=task)
         if form.is_valid():
-            listts = form.save()
-            return redirect('stat_detail', pk=listts.pk)
+            task = form.save()
+            return redirect('task_detail', pk=task.pk)
     else:
-        form = ListForm(instance=listts)
-    return render(request, 'todo/list_form.html', {'form': form})
+        form = ListForm(instance=task)
+    return render(request, 'todo/task_form.html', {'form': form})
 
 
-
-def list_delete(request, pk):
-    Lists.objects.get(id=pk).delete()
-    return redirect('list_list')
+def task_delete(request, pk):
+    List.objects.get(id=pk).delete()
+    return redirect('task_list')
