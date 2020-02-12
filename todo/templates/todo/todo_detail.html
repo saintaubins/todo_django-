@@ -1,0 +1,23 @@
+{% extends 'nba_app/base.html' %}
+
+
+
+{% block content %}
+<h2>{{ player.name }} <button><a href="{% url 'player_edit' pk=player.pk %}">Edit Player </a></button></h2>
+<button><a href="{% url 'player_delete' pk=player.pk %}">Delete</a></button>
+<h4> Player Position: {{ player.player_position }}</h4>
+<h3>Statistics: <button><a href="{% url 'stat_create' %}">Add Statistics for Player</a></button></h3>
+
+<ul>
+    {% for stat in player.stats.all %}
+    <li>
+        <a href="{% url 'stat_detail' pk=stat.pk %}">{{ stat.player_team }} - {{ stat.player.player_name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<img src="{{ player.player_photo }}" alt="" class="player-photo">
+
+
+
+{% endblock %}
